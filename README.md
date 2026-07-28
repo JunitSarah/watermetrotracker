@@ -45,17 +45,17 @@ This project brings all of that together in a single, easy-to-use tracker.
 │  2.    React app calls FastAPI endpoints                    │
 │                        │                                    │
 │                        ▼                                    │
-│  3.    FastAPI routers query MongoDB (ferry_schedules,       │
-│        ferry_locations, alerts)                              │
+│  3.    FastAPI routers query MongoDB (ferry_schedules,      │
+│        ferry_locations, alerts)                             │
 │                        │                                    │
 │                        ▼                                    │
-│  4.    Distance / schedule / live-tracking data computed     │
+│  4.    Distance / schedule / live-tracking data computed    │
 │                        │                                    │
 │                        ▼                                    │
-│  5.    Response returned to frontend                         │
+│  5.    Response returned to frontend                        │
 │                        │                                    │
 │                        ▼                                    │
-│  6.    Rendered on route list, schedule table, and map view   │
+│  6.    Rendered on route list, schedule table, and map view │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
