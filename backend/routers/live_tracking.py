@@ -1,36 +1,36 @@
 from fastapi import APIRouter, Query
+
 from database.connect import db
+from utils import normalize, trip_sequence
 
 router = APIRouter(tags=["live-tracking"])
 
-@router.get("/api/live-tracking", summary="Get live ferries from From → To")
+
+@router.get("/api/live-tracking", summary="Get ferries running From → To")
 def get_live_tracking(
     from_location: str = Query(..., description="From location"),
-    to_location: str = Query(..., description="To location")
+    to_location: str = Query(..., description="To location"),
 ):
-    matching_boats = []
+    start, end = normalize(from_location), normalize(to_location)
+    boats = []
 
-    all_routes = db["ferry_schedules"].find({"from": from_location})
+    for doc in db["ferry_schedules"].find({}, {"_id": 0}):
+        seq = trip_sequence(doc)
+        names = [p["station"] for p in seq]
+        if start not in names or end not in names:
+            continue
+        i, j = names.index(start), names.index(end)
+        if i >= j:
+            continue  # this trip goes the other way
 
-    for route in all_routes:
-        
-        if route.get("to", "").strip().title() == to_location.strip().title():
-            matching_boats.append({
-                "boat_id": route.get("boat_no", "N/A"),
-                "departure_time": route.get("departure", "N/A"),
-                "arrival_time": route.get("arrival", "N/A"),
-                "route": route.get("route", "")
-            })
+        boats.append({
+            "boat_id": doc.get("boat_no", "N/A"),
+            "departure_time": seq[i]["departure"] or "N/A",
+            "arrival_time": seq[j]["arrival"] or "N/A",
+            "route": doc.get("route", ""),
+            # every station the boat passes, from start to end (used by the map)
+            "stops": names[i:j + 1],
+        })
 
-        
-        for stop in route.get("stops", []):
-            stop_name = stop.get("station", "").strip().title()
-            if stop_name == to_location.strip().title():
-                matching_boats.append({
-                    "boat_id": route.get("boat_no", "N/A"),
-                    "departure_time": route.get("departure", "N/A"),
-                    "arrival_time": stop.get("arrival", "N/A"),
-                    "route": route.get("route", "")
-                })
-
-    return {"boats": matching_boats}
+    boats.sort(key=lambda b: b["departure_time"])
+    return {"boats": boats}

@@ -13,11 +13,10 @@ class Alert(BaseModel):
 
 @router.post("/alerts")
 def post_alert(alert: Alert):
-    db["alerts"].insert_one(alert.dict())
+    db["alerts"].insert_one(alert.model_dump())
     return {"message": "Alert posted successfully"}
 
 @router.get("/alerts")
 def get_alerts():
     alerts = list(db["alerts"].find({}, {"_id": 0}))
     return {"alerts": alerts}
-

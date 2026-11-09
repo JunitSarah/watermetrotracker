@@ -27,3 +27,8 @@ def update_ferry_location(data: FerryUpdate):
         return {"message": f"✅ Location updated for {data.id}"}
     return {"message": "⚠️ No matching ferry found or no change made"}
 
+
+
+@router.get("/ferry-locations", summary="Get last known position of every ferry")
+def get_ferry_locations():
+    return {"ferries": list(db["ferry_locations"].find({}, {"_id": 0}))}

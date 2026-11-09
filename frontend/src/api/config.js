@@ -1,17 +1,5 @@
-const API_BASE_URL = "http://127.0.0.1:8000";
-export default API_BASE_URL;
+// Backend URL. Override by creating frontend/.env with:
+//   REACT_APP_API_URL=https://your-backend.example.com
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
-export const ALLOWED_ROUTES = [
-  "Cheranalloor-Eloor",
-  "Eloor-Cheranalloor",
-  "Eloor-SouthChittoor",
-  "SouthChittoor-Eloor",
-  "SouthChittoor-Highcourt",
-  "Highcourt-SouthChittoor",
-  "Highcourt-Vypin",
-  "Vypin-Highcourt",
-  "Vypin-FortKochi",
-  "FortKochi-Vypin",
-  "Kakkanad-Vyttila",
-  "Vyttila-Kakkanad"
-];
+export default API_BASE_URL;

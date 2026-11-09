@@ -1,8 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+beforeEach(() => {
+  // the Live Tracking section calls the backend on load; fake an empty reply
+  global.fetch = jest.fn(() => Promise.resolve({ json: () => Promise.resolve([]) }));
+});
+
+test('renders the navbar title', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText("Kochi Water Metro")).toBeInTheDocument();
 });
