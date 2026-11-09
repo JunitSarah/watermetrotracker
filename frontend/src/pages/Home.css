@@ -1,0 +1,63 @@
+.home-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  text-align: center;
+
+  background-image: url('../assets/bg-home.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
+  background-color: rgb(233 244 254,0.4);
+  color: #119498;
+}
+
+.home-container h1 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.home-container p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+  .home-container h1 {
+    font-size: 1.8rem;
+  }
+
+  .home-container p {
+    font-size: 1rem;
+  }
+}
+.typewriter-title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  color: #119498;
+  min-height: 3.2rem; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .typewriter-title {
+    font-size: 1.8rem;
+    min-height: 2.5rem;
+  }
+}
+p{
+    color: #0373C9;
+}
+
+
+
+
